@@ -223,11 +223,13 @@ BarTabHandler.prototype = {
       (new BarTabWebProgressListener()).hook(newtab);
       (new BarTabWebNavigation()).hook(newtab);
     }
-    sessionstore.setTabState(newtab, state);
 
     // Move the new tab next to the one we're removing, but not in
     // front of it as that confuses Tree Style Tab.
     tabbrowser.moveTabTo(newtab, aTab._tPos + 1);
+
+    tabbrowser.swapBrowsersAndCloseOther(aTab, newtab);
+    sessionstore.setTabState(aTab, state);
 
     // Restore tree when using Tree Style Tab
     if (tabbrowser.treeStyleTab) {
@@ -242,17 +244,6 @@ BarTabHandler.prototype = {
           aChild, newtab, {dontAnimate: true});
       });
     }
-
-    // Close the original tab.  We're taking the long way round to
-    // ensure the nsISessionStore service won't save this in the
-    // recently closed tabs.
-    let check = tabbrowser._beginRemoveTab(aTab, true, null, false);
-    if (typeof check == "boolean" && check) {
-      // Firefox 4.0
-      tabbrowser._endRemoveTab(aTab);
-      return;
-    }
-    tabbrowser._endRemoveTab(check);
   },
 
   unloadOtherTabs: function(aTab) {
