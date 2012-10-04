@@ -314,12 +314,12 @@ BarTabHandler.prototype = {
     while ((aTab._tPos - i >= 0) ||
          (aTab._tPos + i < tabbrowser.mTabs.length)) {
       if (aTab._tPos + i < tabbrowser.mTabs.length) {
-        if (tabbrowser.mTabs[aTab._tPos+i].getAttribute("ontab") != "true" && tabbrowser.mTabs[aTab._tPos+i].getAttribute("linkedpanel") == aTab.selectedPanel) {
+        if (tabbrowser.mTabs[aTab._tPos+i].getAttribute("ontab") != "true") {
           return tabbrowser.mTabs[aTab._tPos+i];
         }
       }
       if (aTab._tPos - i >= 0) {
-        if (tabbrowser.mTabs[aTab._tPos-i].getAttribute("ontab") != "true" && tabbrowser.mTabs[aTab._tPos-i].getAttribute("linkedpanel") == aTab.selectedPanel ) {
+        if (tabbrowser.mTabs[aTab._tPos-i].getAttribute("ontab") != "true") {
           return tabbrowser.mTabs[aTab._tPos-i];
         }
       }
