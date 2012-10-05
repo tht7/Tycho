@@ -294,33 +294,48 @@ BarTabHandler.prototype = {
    * tabs as a last resort.
    */
   findClosestLoadedTab: function(aTab) {
-    var tabbrowser = this.tabbrowser;
+    var visibleTabs = this.tabbrowser.visibleTabs;
 
     // Shortcut: if this is the only tab available, we're not going to
     // find another active one, are we...
-    if (tabbrowser.mTabs.length == 1) {
+    if (visibleTabs.length == 1) {
       return null;
     }
 
-    // The most obvious choice would be the owner tab, if it's active.
+    // The most obvious choice would be the owner tab, if it's active and is
+    // part of the same tab group.
     if (aTab.owner
       && BarTabUtils.mPrefs.getBoolPref("browser.tabs.selectOwnerOnClose")
       && aTab.owner.getAttribute("ontab") != "true") {
-      return aTab.owner;
-    }
-
-    // Otherwise walk the tab list and see if we can find an active one.
-    let i = 1;
-    while ((aTab._tPos - i >= 0) ||
-         (aTab._tPos + i < tabbrowser.mTabs.length)) {
-      if (aTab._tPos + i < tabbrowser.mTabs.length) {
-        if (tabbrowser.mTabs[aTab._tPos+i].getAttribute("ontab") != "true") {
-          return tabbrowser.mTabs[aTab._tPos+i];
+      let i = 0;
+      while (i < visibleTabs.length) {
+        if (visibleTabs[i] == aTab.owner) {
+          return aTab.owner;
         }
       }
-      if (aTab._tPos - i >= 0) {
-        if (tabbrowser.mTabs[aTab._tPos-i].getAttribute("ontab") != "true") {
-          return tabbrowser.mTabs[aTab._tPos-i];
+    }
+
+    // Otherwise walk the list of visible tabs and see if we can find an
+    // active one.
+    // To do that, first we need the index of the current tab in the visible-
+    // tabs array.
+    let tabIndex = 0;
+    while (tabIndex < visibleTabs.length &&
+           visibleTabs[tabIndex] != aTab) {
+      i++;
+    }
+
+    let i = 1;
+    while ((tabIndex - i >= 0) ||
+           (tabIndex + i < visibleTabs.length)) {
+      if (tabIndex + i < visibleTabs.length) {
+        if (visibleTabs[tabIndex + i].getAttribute("ontab") != "true") {
+          return visibleTabs[tabIndex + i];
+        }
+      }
+      if (tabIndex - i >= 0) {
+        if(visibleTabs[tabIndex - i].getAttribute("ontab") != "true") {
+          return visibleTabs[tabIndex - i];
         }
       }
       i++;
@@ -330,12 +345,46 @@ BarTabHandler.prototype = {
     // to have to nominate a non-active one.
     if (aTab.owner
       && BarTabUtils.mPrefs.getBoolPref("browser.tabs.selectOwnerOnClose")) {
-      return aTab.owner;
+      let i = 0;
+      while (i < visibleTabs.length) {
+        if (visibleTabs[i] == aTab.owner) {
+          return aTab.owner;
+        }
+        i++;
+      }
     }
+    // This may not be necessary; if aTab.nextSibling will always be equal to
+    // visibleTabs[tabIndex+1], and aTab.previousSibling will always be equal
+    // to visibleTabs[tabIndex-1], then we can use those values directly
+    // instead of wasting time on the loops.
+    //
+    // But I don't know if that assumption is guaranteed to be valid, so I'd
+    // prefer not to make it without confirmation from the Firefox devs.
     if (aTab.nextSibling) {
-      return aTab.nextSibling;
+      let i = 0;
+      while (i < visibleTabs.length) {
+        if (visibleTabs[i] == aTab.nextSibling) {
+          return aTab.nextSibling;
+        }
+        i++;
+      }
     }
-    return aTab.previousSibling;
+    if (aTab.previousSibling) {
+      let i = 0;
+      while (i < visibleTabs.length) {
+        if (visibleTabs[i] == aTab.previousSibling) {
+          return aTab.previousSibling;
+        }
+        i++;
+      }
+    }
+
+    // If we get this far, something's wrong. It shouldn't be possible for
+    // neither sibling to be valid unless visibleTabs.length is greater than
+    // 1.
+    console.error("BarTab: there are %d visible tabs, which is greater than 1, but no suitable tab was found",
+                  visibleTabs.length);
+    return null;
   }
 };
 
