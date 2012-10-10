@@ -312,6 +312,7 @@ BarTabHandler.prototype = {
         if (visibleTabs[i] == aTab.owner) {
           return aTab.owner;
         }
+        i++;
       }
     }
 
@@ -319,22 +320,40 @@ BarTabHandler.prototype = {
     // active one.
     // To do that, first we need the index of the current tab in the visible-
     // tabs array.
+    // However, if the current tab is being closed, it's already been removed
+    // from that array. Therefore, we have to also accept its next-higher
+    // sibling, if one is found. If one isn't, then the current tab was at
+    // the end of the visible-tabs array, and the new end-of-array tab is the
+    // best choice for a substitute index.
     let tabIndex = 0;
-    while (tabIndex < visibleTabs.length &&
-           visibleTabs[tabIndex] != aTab) {
+    while (tabIndex + 1 < visibleTabs.length &&
+           visibleTabs[tabIndex] != aTab &&
+           visibleTabs[tabIndex] != aTab.nextSibling) {
+      // This loop will result in tabIndex pointing to one of three places:
+      //    The current tab (aTab)
+      //    The tab which had one index higher than the current tab, until the
+      //      current tab was closed (aTab.nextSibling)
+      //    The final tab in the array (tabIndex + 1 == visibleTabs.length)
+      if (visibleTabs[tabIndex] == aTab.previousSibling) {
+      }
       tabIndex++;
     }
 
-    let i = 1;
+    let i = 0;
     while ((tabIndex - i >= 0) ||
            (tabIndex + i < visibleTabs.length)) {
       if (tabIndex + i < visibleTabs.length) {
-        if (visibleTabs[tabIndex + i].getAttribute("ontab") != "true") {
+        if (visibleTabs[tabIndex + i].getAttribute("ontab") != "true" &&
+            visibleTabs[tabIndex + i] != aTab) {
+          // The '!= aTab' test is to rule out the case where i == 0 and
+          // aTab is being unloaded rather than closed, so that tabIndex
+          // points to aTab instead of its nextSibling.
           return visibleTabs[tabIndex + i];
         }
       }
       if (tabIndex - i >= 0) {
-        if(visibleTabs[tabIndex - i].getAttribute("ontab") != "true") {
+        if(visibleTabs[tabIndex - i].getAttribute("ontab") != "true" &&
+           visibleTabs[tabIndex - i] != aTab) {
           return visibleTabs[tabIndex - i];
         }
       }
@@ -345,8 +364,8 @@ BarTabHandler.prototype = {
     // to have to nominate a non-active one.
 
     // Start with the owner, if appropriate.
-    if (aTab.owner
-      && BarTabUtils.mPrefs.getBoolPref("browser.tabs.selectOwnerOnClose")) {
+    if (aTab.owner &&
+        BarTabUtils.mPrefs.getBoolPref("browser.tabs.selectOwnerOnClose")) {
       let i = 0;
       while (i < visibleTabs.length) {
         if (visibleTabs[i] == aTab.owner) {
@@ -366,14 +385,18 @@ BarTabHandler.prototype = {
     if (tabIndex + 1 < visibleTabs.length) {
       return visibleTabs[tabIndex + 1];
     }
+    if (tabIndex < visibleTabs.length &&
+        visibleTabs[tabIndex] != aTab) {
+      // aTab was closed, so the tab at its previous index is a valid choice
+      return visibleTabs[tabIndex];
+    }
     if (tabIndex - 1 >= 0) {
       return visibleTabs[tabIndex - 1];
     }
 
     // If we get this far, something's wrong. It shouldn't be possible for
     // there to not be an adjacent tab unless (visibleTabs.length == 1).
-    console.error("BarTab: there are %d visible tabs, which is greater than 1, but no suitable tab was found",
-                  visibleTabs.length);
+    Cu.reportError("BarTab: there are " + visibleTabs.length + " visible tabs, which is greater than 1, but no suitable tab was found from index " + tabIndex);
     return null;
   }
 };
