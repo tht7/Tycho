@@ -322,7 +322,7 @@ BarTabHandler.prototype = {
     let tabIndex = 0;
     while (tabIndex < visibleTabs.length &&
            visibleTabs[tabIndex] != aTab) {
-      i++;
+      tabIndex++;
     }
 
     let i = 1;
@@ -343,6 +343,8 @@ BarTabHandler.prototype = {
 
     // Fallback: there isn't an active tab available, so we're going
     // to have to nominate a non-active one.
+
+    // Start with the owner, if appropriate.
     if (aTab.owner
       && BarTabUtils.mPrefs.getBoolPref("browser.tabs.selectOwnerOnClose")) {
       let i = 0;
@@ -353,6 +355,7 @@ BarTabHandler.prototype = {
         i++;
       }
     }
+    // Otherwise, fall back to one of the adjacent tabs.
     // This may not be necessary; if aTab.nextSibling will always be equal to
     // visibleTabs[tabIndex+1], and aTab.previousSibling will always be equal
     // to visibleTabs[tabIndex-1], then we can use those values directly
@@ -360,28 +363,15 @@ BarTabHandler.prototype = {
     //
     // But I don't know if that assumption is guaranteed to be valid, so I'd
     // prefer not to make it without confirmation from the Firefox devs.
-    if (aTab.nextSibling) {
-      let i = 0;
-      while (i < visibleTabs.length) {
-        if (visibleTabs[i] == aTab.nextSibling) {
-          return aTab.nextSibling;
-        }
-        i++;
-      }
+    if (tabIndex + 1 < visibleTabs.length) {
+      return visibleTabs[tabIndex + 1];
     }
-    if (aTab.previousSibling) {
-      let i = 0;
-      while (i < visibleTabs.length) {
-        if (visibleTabs[i] == aTab.previousSibling) {
-          return aTab.previousSibling;
-        }
-        i++;
-      }
+    if (tabIndex - 1 >= 0) {
+      return visibleTabs[tabIndex - 1];
     }
 
     // If we get this far, something's wrong. It shouldn't be possible for
-    // neither sibling to be valid unless visibleTabs.length is greater than
-    // 1.
+    // there to not be an adjacent tab unless (visibleTabs.length == 1).
     console.error("BarTab: there are %d visible tabs, which is greater than 1, but no suitable tab was found",
                   visibleTabs.length);
     return null;
