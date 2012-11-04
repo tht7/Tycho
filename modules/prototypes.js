@@ -342,6 +342,7 @@ BarTabHandler.prototype = {
     let i = 0;
     while ((tabIndex - i >= 0) ||
            (tabIndex + i < visibleTabs.length)) {
+      let offsetIncremented = 0;
       if (tabIndex + i < visibleTabs.length) {
         if (visibleTabs[tabIndex + i].getAttribute("ontab") != "true" &&
             visibleTabs[tabIndex + i] != aTab) {
@@ -351,11 +352,24 @@ BarTabHandler.prototype = {
           return visibleTabs[tabIndex + i];
         }
       }
+      if(i == 0) {
+        // This is ugly, but should work.
+        // If aTab has been closed, and nextSibling is unloaded, then we
+        // have to check previousSibling before the next loop, or we'll take
+        // nextSibling.nextSibling (if loaded) over previousSibling, which is
+        // closer to the true "x.5" tabIndex offset.
+        offsetIncremented = 1;
+        i++;
+      }
       if (tabIndex - i >= 0) {
         if(visibleTabs[tabIndex - i].getAttribute("ontab") != "true" &&
            visibleTabs[tabIndex - i] != aTab) {
           return visibleTabs[tabIndex - i];
         }
+      }
+      if(offsetIncremented > 0) {
+        offsetIncremented = 0;
+        i--;
       }
       i++;
     }
