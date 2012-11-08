@@ -29,6 +29,9 @@
       <preference id="extensions.bartab.findClosestLoadedTab"
                   name="extensions.bartab.findClosestLoadedTab"
                   type="bool" />
+      <preference id="extensions.bartab.unloadOnlyVisibleTabs"
+                  name="extensions.bartab.unloadOnlyVisibleTabs"
+                  type="bool" />
     </preferences>
 
     <groupbox id="BarTabGroup">
@@ -141,6 +144,19 @@
         <menupopup>
           <menuitem label="&doNothing.label;" value="false"/>
           <menuitem label="&findClosestLoadedTab.label;" value="true"/>
+        </menupopup>
+      </menulist>
+    </row>
+
+    <row align="center">
+      <label value="&unloadingOtherTabs.label;"
+             accesskey="&unloadingOtherTabs.accesskey;"
+             control="menuUnloadingOtherTabs" />
+      <menulist id="menuUnloadingOtherTabs"
+                preference="extensions.bartab.unloadOnlyVisibleTabs">
+        <menupopup>
+          <menuitem label="&unloadAllTabsInWindow.label;" value="false"/>
+          <menuitem label="&unloadOnlyVisibleTabs.label;" value="true"/>
         </menupopup>
       </menulist>
     </row>

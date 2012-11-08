@@ -257,8 +257,14 @@ BarTabHandler.prototype = {
     // unloadTab() mutates the tabs so the only sane thing to do is to
     // copy the list of tabs now and then work off that list.
     var tabs = [];
-    for (let i = 0; i < tabbrowser.visibleTabs.length; i++) {
-      tabs.push(tabbrowser.visibleTabs[i]);
+    if(BarTabUtils.mPrefs.getBoolPref("extensions.bartab.unloadOnlyVisibleTabs")) {
+      for (let i = 0; i < tabbrowser.visibleTabs.length; i++) {
+        tabs.push(tabbrowser.visibleTabs[i]);
+      }
+    } else {
+      for (let i = 0; i < tabbrowser.mTabs.length; i++) {
+        tabs.push(tabbrowser.mTabs[i]);
+      }
     }
     var self = this;
     tabs.forEach(function(tab) {

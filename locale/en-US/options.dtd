@@ -31,3 +31,7 @@
 <!ENTITY closingTabs.label "When closing a tab:">
 <!ENTITY closingTabs.accesskey "C">
 <!ENTITY findClosestLoadedTab.label "select the nearest loaded tab">
+<!ENTITY unloadingOtherTabs.label "When unloading all but the current tab:">
+<!ENTITY unloadingOtherTabs.accesskey "U">
+<!ENTITY unloadAllTabsInWindow.label "Unload tabs from all groups in the current window">
+<!ENTITY unloadOnlyVisibleTabs.label "Unload only tabs from the currently active tab group">
