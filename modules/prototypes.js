@@ -336,9 +336,9 @@ BarTabHandler.prototype = {
            visibleTabs[tabIndex] != aTab &&
            visibleTabs[tabIndex] != aTab.nextSibling) {
       // This loop will result in tabIndex pointing to one of three places:
-      //    The current tab (aTab)
+      //    The current tab (visibleTabs[i] == aTab)
       //    The tab which had one index higher than the current tab, until the
-      //      current tab was closed (aTab.nextSibling)
+      //      current tab was closed (visibleTabs[i] == aTab.nextSibling)
       //    The final tab in the array (tabIndex + 1 == visibleTabs.length)
       if (visibleTabs[tabIndex] == aTab.previousSibling) {
       }
@@ -395,20 +395,14 @@ BarTabHandler.prototype = {
       }
     }
     // Otherwise, fall back to one of the adjacent tabs.
-    // This may not be necessary; if aTab.nextSibling will always be equal to
-    // visibleTabs[tabIndex+1], and aTab.previousSibling will always be equal
-    // to visibleTabs[tabIndex-1], then we can use those values directly
-    // instead of wasting time on the loops.
-    //
-    // But I don't know if that assumption is guaranteed to be valid, so I'd
-    // prefer not to make it without confirmation from the Firefox devs.
-    if (tabIndex + 1 < visibleTabs.length) {
-      return visibleTabs[tabIndex + 1];
-    }
     if (tabIndex < visibleTabs.length &&
         visibleTabs[tabIndex] != aTab) {
-      // aTab was closed, so the tab at its previous index is a valid choice
+      // aTab was closed, so the tab at its previous index is the correct
+      // first choice
       return visibleTabs[tabIndex];
+    }
+    if (tabIndex + 1 < visibleTabs.length) {
+      return visibleTabs[tabIndex + 1];
     }
     if (tabIndex - 1 >= 0) {
       return visibleTabs[tabIndex - 1];
