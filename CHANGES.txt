@@ -1,3 +1,16 @@
+3.2
+----------------
+
+* Support for "select nearest loaded tab" when using tab groups.
+
+* Drop support for SeaMonkey for the time being. SeaMonkey doesn't
+  support tab groups, so the "select nearest loaded tab" code that
+  works with tab groups won't work on SeaMonkey. I hope to restore
+  support later on, but for the time being, Firefox is the priority.
+
+* A new option to let "unload other tabs" only affect tabs in the
+  current tab group.
+
 2.1 (unreleased)
 ----------------
 
