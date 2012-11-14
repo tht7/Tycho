@@ -358,7 +358,7 @@ BarTabHandler.prototype = {
           return visibleTabs[tabIndex + i];
         }
       }
-      if(i == 0) {
+      if(i == 0 && visibleTabs[tabIndex] != aTab) {
         // This is ugly, but should work.
         // If aTab has been closed, and nextSibling is unloaded, then we
         // have to check previousSibling before the next loop, or we'll take
