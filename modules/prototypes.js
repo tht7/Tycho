@@ -753,7 +753,7 @@ BarTabWebProgressListener.prototype = {
     // before _pauseLoadURI overwrites it all again.
     browser.stop();
 
-    let flags = Ci.nsIWebNavigation.LOAD_FLAGS_NONE;
+    let flags = Ci.nsIWebNavigation.LOAD_FLAGS_BYPASS_HISTORY;
     let window = this._tab.ownerDocument.defaultView;
     window.setTimeout(function () {
       browser.webNavigation.loadURI(
