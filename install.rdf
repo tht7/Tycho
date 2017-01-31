@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id>bartap@philikon.de</em:id>
+    <em:id>bartab@infernozeus</em:id>
     <em:type>2</em:type>
-    <em:name>BarTab</em:name>
+    <em:name>BarTab Tycho</em:name>
     <em:version>3.2</em:version>
-    <em:homepageURL>https://addons.mozilla.org/firefox/addon/67651</em:homepageURL>
-    <em:creator>Philipp von Weitershausen</em:creator>
+    <em:homepageURL>https://github.com/InfernoZeus/BarTabTycho</em:homepageURL>
+    <em:creator>Ben Fox-Moore</em:creator>
+    <em:contributor>Philipp von Weitershausen</em:contributor>
     <em:contributor>SHIMODA Hiroshi</em:contributor>
     <em:contributor>Paul O'Shannessy</em:contributor>
     <em:contributor>Róman Joost (logo)</em:contributor>
@@ -18,11 +19,11 @@
     <em:translator>Felipe Barousse Boué [es]</em:translator>
     <em:translator>Danny Navarro [es-ES]</em:translator>
     <em:optionsURL>chrome://bartab/content/preferences.xul</em:optionsURL>
-    <!-- Firefox -->
+    <!-- Pale Moon -->
     <em:targetApplication>
       <Description>
-        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- Firefox -->
-        <em:minVersion>4.0b1</em:minVersion>
+        <em:id>{8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}</em:id> <!-- Pale Moon -->
+        <em:minVersion>4.0</em:minVersion>
         <em:maxVersion>99.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
