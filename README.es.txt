@@ -2,7 +2,7 @@ BarTab -- o -- Bebe ahora, paga luego: deja tus pestañas a deber!
 =================================================================
 
 Así que mantienes las pestañas abiertas como las bibliótecas mantienen
-sus libros... ¿No tienes miedo de que Firefox consuma toda tu memoria?
+sus libros... ¿No tienes miedo de que Pale Moon consuma toda tu memoria?
 ¿No temes reiniciar el navegador por lo mucho que tarda recargar todas
 tus pestañas?
 

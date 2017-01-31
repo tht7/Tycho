@@ -2,7 +2,7 @@ BarTab -- lub -- Pij teraz, płać później: odłóż swoje karty na pasku!
 =====================================================================
 
 Przechowujesz otwarte karty, jak książki w bibliotece... Nie boisz się
-o nadmierne zajmowanie pamięci przez Firefoksa? Obawiasz się uruchamiania
+o nadmierne zajmowanie pamięci przez Pale Moon? Obawiasz się uruchamiania
 przeglądarki ze względu na długi czas ponownego ładowania przywracanych
 kart?
 
