@@ -2,7 +2,7 @@ BarTab -- or -- Drink now, pay later: put your tabs on your bar tab!
 ====================================================================
 
 So you keep open tabs like libraries keep books... Aren't you afraid
-Firefox will consume all your memory?  Don't you fear browser restarts
+Pale Moon will consume all your memory?  Don't you fear browser restarts
 because it takes so long to reload all your tabs?
 
 Well, you shouldn't! Because now you can put all the tabs you don't

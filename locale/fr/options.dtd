@@ -5,11 +5,11 @@
 <!ENTITY restoredTabs.accesskey "R">
 <!ENTITY backgroundTabs.label "Lors de l'ouverture d'onglets en arrière plan:">
 <!ENTITY backgroundTabs.accesskey "B">
-<!ENTITY loadTabs.label "les charger (par défaut dans Firefox)">
+<!ENTITY loadTabs.label "les charger (par défaut dans Pale Moon)">
 <!ENTITY dontLoadTabs.label "ne pas les charger">
 <!ENTITY unloadAfterTimeout.label "Lorsqu'un onglet est inutilisé:">
 <!ENTITY unloadAfterTimeout.accesskey "T">
-<!ENTITY doNothing.label "ne rien faire (par défaut dans Firefox)">
+<!ENTITY doNothing.label "ne rien faire (par défaut dans Pale Moon)">
 <!ENTITY unloadAfter.label "le décharger après...">
 <!ENTITY timeoutSecs.label "s">
 <!ENTITY timeoutMins.label "min">

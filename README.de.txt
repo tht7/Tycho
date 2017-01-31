@@ -2,7 +2,7 @@ BarTab -- oder -- Jetzt trinken, später zahlen: lass dir deine Tabs anschreiben
 ================================================================================
 
 Du hast also immer ungefähr so viele Tabs geöffnet wie Bibliotheken
-Bücher haben... Hast Du denn keine Angst, dass Firefox deinen ganzen
+Bücher haben... Hast Du denn keine Angst, dass Pale Moon deinen ganzen
 Speicher frisst? Fürchtest du dich nicht vor Browser-Neustarts, weil
 sie bei so vielen Tabs immer wahnsinnig lange dauern?
 

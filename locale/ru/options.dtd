@@ -5,11 +5,11 @@
 <!ENTITY restoredTabs.accesskey "В">
 <!ENTITY backgroundTabs.label "При открытии вкладок в фоне: ">
 <!ENTITY backgroundTabs.accesskey "Ф">
-<!ENTITY loadTabs.label "загружать их (по умолчанию в Firefox)">
+<!ENTITY loadTabs.label "загружать их (по умолчанию в Pale Moon)">
 <!ENTITY dontLoadTabs.label "не загружать их">
 <!ENTITY unloadAfterTimeout.label "Когда я не посещаю вкладку некоторое время: ">
 <!ENTITY unloadAfterTimeout.accesskey "Н">
-<!ENTITY doNothing.label "ничего не делать (по умолчанию в Firefox)">
+<!ENTITY doNothing.label "ничего не делать (по умолчанию в Pale Moon)">
 <!ENTITY unloadAfter.label "выгружать ее после">
 <!ENTITY timeoutSecs.label "сек.">
 <!ENTITY timeoutMins.label "мин.">

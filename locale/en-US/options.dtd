@@ -5,11 +5,11 @@
 <!ENTITY restoredTabs.accesskey "R">
 <!ENTITY backgroundTabs.label "When opening tabs in the background: ">
 <!ENTITY backgroundTabs.accesskey "B">
-<!ENTITY loadTabs.label "load them (Firefox default)">
+<!ENTITY loadTabs.label "load them (Pale Moon default)">
 <!ENTITY dontLoadTabs.label "don't load them">
 <!ENTITY unloadAfterTimeout.label "When I don't visit a tab for a while: ">
 <!ENTITY unloadAfterTimeout.accesskey "T">
-<!ENTITY doNothing.label "do nothing (Firefox default)">
+<!ENTITY doNothing.label "do nothing (Pale Moon default)">
 <!ENTITY unloadAfter.label "unload it after...">
 <!ENTITY timeoutSecs.label "secs">
 <!ENTITY timeoutMins.label "mins">

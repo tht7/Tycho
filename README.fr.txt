@@ -2,7 +2,7 @@ BarTab ou comment boire maintenant et payer plus tard: inscrivez vos onglets sur
 ===========================================================================================
 
 Alors comme ça vous laissez les onglets ouverts tel un bibliothécaire
-amassant des livres... Ne craignez vous pas que Firefox consomme toute
+amassant des livres... Ne craignez vous pas que Pale Moon consomme toute
 votre mémoire? Frémissez vous à l'idée de relancer votre navigateur
 car il met beaucoup de temps à charger tous vos onglets?
 

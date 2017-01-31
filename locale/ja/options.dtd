@@ -5,11 +5,11 @@
 <!ENTITY restoredTabs.accesskey "R">
 <!ENTITY backgroundTabs.label "リンクから開かれて、まだ読んでいない新しいタブ: ">
 <!ENTITY backgroundTabs.accesskey "B">
-<!ENTITY loadTabs.label "読み込む (Firefox 初期状態)">
+<!ENTITY loadTabs.label "読み込む (Pale Moon 初期状態)">
 <!ENTITY dontLoadTabs.label "待機させておく">
 <!ENTITY unloadAfterTimeout.label "しばらくタブを見なかった場合: ">
 <!ENTITY unloadAfterTimeout.accesskey "T">
-<!ENTITY doNothing.label "なにもしない (Firefox 初期状態)">
+<!ENTITY doNothing.label "なにもしない (Pale Moon 初期状態)">
 <!ENTITY unloadAfter.label "時間が経ったら待機させる">
 <!ENTITY timeoutSecs.label "秒">
 <!ENTITY timeoutMins.label "分">

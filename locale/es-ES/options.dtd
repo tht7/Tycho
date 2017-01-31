@@ -5,11 +5,11 @@
 <!ENTITY restoredTabs.accesskey "R">
 <!ENTITY backgroundTabs.label "Cuando abra las pestañas sin cambiar a ésta">
 <!ENTITY backgroundTabs.accesskey "B">
-<!ENTITY loadTabs.label "cargarlas (por defecto en Firefox)">
+<!ENTITY loadTabs.label "cargarlas (por defecto en Pale Moon)">
 <!ENTITY dontLoadTabs.label "no cargarlas">
 <!ENTITY unloadAfterTimeout.label "Cuando no visite una pestaña por un tiempo">
 <!ENTITY unloadAfterTimeout.accesskey "T">
-<!ENTITY doNothing.label "No hacer nada (por defecto en Firefox)">
+<!ENTITY doNothing.label "No hacer nada (por defecto en Pale Moon)">
 <!ENTITY unloadAfter.label "descargarla después de...">
 <!ENTITY timeoutSecs.label "segs">
 <!ENTITY timeoutMins.label "mins">
