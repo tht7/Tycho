@@ -1,3 +1,10 @@
+4.0
+----------------
+
+* Adopt project, with new name "BarTab Tycho", explicitly targeting Pale Moon
+
+* Allow pinned tabs to be unloaded again
+
 3.2
 ----------------
 
