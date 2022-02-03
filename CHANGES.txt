@@ -4,7 +4,7 @@ New year new me!
 
 * Added the ability to whitelist a specific URL
 
-* Added the ability to be installed on WaterFox (classic)!
+* Added the ability to be installed on Waterfox-Classic! with a new name: "Tycho+".
 
 4.0
 ----------------
