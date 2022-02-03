@@ -134,6 +134,34 @@
     </row>
 
     <separator class="thin"/>
+    
+    <row>
+      <vbox>
+        <label value="&hostWhitelistSpecific.label;"
+               accesskey="&hostWhitelistSpecific.accesskey;"
+               control="whitelistSpecific" />
+        <description style="font: small-caption;
+                            font-weight: normal;
+                            width: 0; /* trigger word wrapping */
+                            margin: 0.5em 1em 0em 1em;">&hostWhitelist.description;</description>
+      </vbox>
+      <listbox id="whitelistSpecific"
+               flex="1"
+               style="height: 5em;"
+               seltype="multiple"
+               onselect="BarTabPreferences.whiteListSpecificEntrySelected(event);">
+      </listbox>
+      <vbox>
+        <spacer flex="1" />
+        <button id="whitelistSpecificRemove"
+                disabled="true"
+                label="&hostWhitelistRemove.label;"
+                accesskey="&hostWhitelistRemove.accesskey;"
+                oncommand="BarTabPreferences.removeWhitelistSpecificEntry();" />
+      </vbox>
+    </row>
+    
+    <separator class="thin"/>
 
     <row align="center">
       <label value="&closingTabs.label;"

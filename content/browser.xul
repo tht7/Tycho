@@ -29,6 +29,12 @@
                 autocheck="false"
                 oncommand="gBrowser.BarTabHandler.toggleWhitelist(gBrowser.mContextTab);"
                 insertbefore="context_openTabInWindow"/>
+      <menuitem id="context_BarTabNeverUnloadSpecific"
+                label="Keep this URL loaded"
+                type="checkbox"
+                autocheck="false"
+                oncommand="gBrowser.BarTabHandler.toggleSpecificWhitelist(gBrowser.mContextTab);"
+                insertbefore="context_openTabInWindow"/>
       <menuseparator id="context_BarTabSeparator"
                      insertbefore="context_openTabInWindow"/>
     </menupopup>

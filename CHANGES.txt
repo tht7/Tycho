@@ -1,3 +1,11 @@
+5.0
+----------------
+New year new me!
+
+* Added the ability to whitelist a specific URL
+
+* Added the ability to be installed on WaterFox (classic)!
+
 4.0
 ----------------
 

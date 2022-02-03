@@ -145,6 +145,7 @@ BarTabHandler.prototype = {
       document.popupNode : this.tabbrowser.selectedTab;
 
     var neverunload = document.getElementById("context_BarTabNeverUnload");
+    var neverunloadSpecific = document.getElementById("context_BarTabNeverUnloadSpecific");
     var unloadtab = document.getElementById("context_BarTabUnloadTab");
 
     let host;
@@ -158,6 +159,7 @@ BarTabHandler.prototype = {
     }
     if (!host) {
       neverunload.setAttribute("hidden", "true");
+      neverunloadSpecific.setAttribute("hidden", "true");
       unloadtab.removeAttribute("disabled");
       return;
     }
@@ -165,12 +167,22 @@ BarTabHandler.prototype = {
     let label = this.l10n.getFormattedString('neverUnload', [host]);
     neverunload.setAttribute("label", label);
     neverunload.removeAttribute("hidden");
+    neverunloadSpecific.removeAttribute("hidden");
     if (BarTabUtils.whiteListed(tab.linkedBrowser.currentURI)) {
       neverunload.setAttribute("checked", "true");
       unloadtab.setAttribute("disabled", "true");
+    }
+    
+    if (BarTabUtils.specificWhiteListed(tab.linkedBrowser.currentURI)) {
+      neverunloadSpecific.setAttribute("checked", "true");
+      unloadtab.setAttribute("disabled", "true");
+    }
+    
+    if (BarTabUtils.specificWhiteListed(tab.linkedBrowser.currentURI) || BarTabUtils.whiteListed(tab.linkedBrowser.currentURI)) {
       return;
     }
 
+    neverunloadSpecific.removeAttribute("checked");
     neverunload.removeAttribute("checked");
     if (tab.getAttribute("ontab") == "true") {
       unloadtab.setAttribute("disabled", "true");
@@ -195,7 +207,7 @@ BarTabHandler.prototype = {
     if (aTab.getAttribute("ontab") == "true") {
       return;
     }
-    if (BarTabUtils.whiteListed(aTab.linkedBrowser.currentURI)) {
+    if (BarTabUtils.whiteListed(aTab.linkedBrowser.currentURI) || BarTabUtils.specificWhiteListed(aTab.linkedBrowser.currentURI)) {
       return;
     }
 
@@ -292,6 +304,27 @@ BarTabHandler.prototype = {
     }
 
     BarTabUtils.setWhitelist(whitelist);
+  },
+  
+  
+  toggleSpecificWhitelist: function(aTab) {
+    var uri = aTab.linkedBrowser.currentURI;
+    try {
+      var host = uri.host;
+    } catch(ex) {
+      // Most likely uri.host doesn't exist.  Ignore then.
+      return;
+    }
+    
+    let whitelist = BarTabUtils.getSpecificWhitelist();
+    let index = whitelist.indexOf(uri.spec);
+    if (index == -1) {
+      whitelist.push(uri.spec);
+    } else {
+      whitelist.splice(index, 1);
+    }
+    
+    BarTabUtils.setSpecificWhitelist(whitelist);
   },
 
   /*
@@ -498,7 +531,7 @@ BarTabWebNavigation.prototype = {
   _pauseGotoIndex: function (aIndex) {
     var history = this._original.sessionHistory;
     var entry = history.getEntryAtIndex(aIndex, false);
-    if (BarTabUtils.whiteListed(entry.URI)) {
+    if (BarTabUtils.whiteListed(entry.URI) || BarTabUtils.specificWhiteListed(entry.URI)) {
       this._tab.removeAttribute("ontab");
       return this._original.gotoIndex(aIndex);
     }
@@ -540,12 +573,13 @@ BarTabWebNavigation.prototype = {
 
   _pauseLoadURI: function (aURI, aLoadFlags, aReferrer) {
     var uri = BarTabUtils.makeURI(aURI);
-    if (BarTabUtils.whiteListed(uri)) {
+    if (BarTabUtils.whiteListed(uri) || BarTabUtils.specificWhiteListed(uri)) {
       let original = this._original;
       this._tab.removeAttribute("ontab");
       this.unhook();
       return original.loadURI.apply(original, arguments);
     }
+
 
     this._tab.removeAttribute("busy");
     let window = this._tab.ownerDocument.defaultView;
@@ -722,7 +756,7 @@ BarTabWebProgressListener.prototype = {
 
     // Allow whitelisted URIs to load.
     let browser = this._tab.linkedBrowser;
-    if (BarTabUtils.whiteListed(uri)) {
+    if (BarTabUtils.whiteListed(uri) || BarTabUtils.specificWhiteListed(uri)) {
       this._tab.removeAttribute("ontab");
       // webNavigation.unhook() will call our unhook.
       browser.webNavigation.unhook();
@@ -1066,6 +1100,18 @@ var BarTabUtils = {
       return false;
     }
   },
+  
+  /*
+  * Check whether a URI is on the white list.
+  */
+  specificWhiteListed: function(aURI) {
+    try {
+      return (BarTabUtils.getSpecificWhitelist().indexOf(aURI.spec) != -1);
+    } catch(ex) {
+      // Most likely gotouri.host failed, so it isn't on the white list.
+      return false;
+    }
+  },
 
   /*
    * It might seem more elegant to use a getter & setter here so you
@@ -1086,6 +1132,24 @@ var BarTabUtils = {
   setWhitelist: function(whitelist) {
     BarTabUtils.mPrefs.setCharPref("extensions.bartab.whitelist",
                                    whitelist.join(";"));
+  },
+  
+  getSpecificWhitelist: function() {
+    try {
+      var whitelist = BarTabUtils.mPrefs.getCharPref(
+        "extensions.bartab.whitelistspecific");
+      if (!whitelist) {
+        return [];
+      }
+      return whitelist.split(";");
+    } catch(e) {
+      return [];
+    }
+  },
+  
+  setSpecificWhitelist: function(whitelist) {
+    BarTabUtils.mPrefs.setCharPref("extensions.bartab.whitelistspecific",
+      whitelist.join(";"));
   }
 
 };
